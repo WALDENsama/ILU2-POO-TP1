@@ -14,35 +14,72 @@ public class Village {
 	private Chef chef;
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
+	private Marche marche;
 
-	public Village(String nom, int nbVillageoisMaximum) {
+	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
+		this.marche = new Marche(nbEtals);
 	}
 	
 	private class Marche{
-		Etal []etals;
+		private Etal []etals;
 		
 		public Marche(int nbEtals) {
 			this.etals = etals;
-			etals =  new Etal[nbEtals];
+			for(int i=0; i<nbEtals; i++)
+				etals[i] = new Etal();	
 		}
-	}
 	
+
 	public void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
-		etals =  new Etal[indiceEtal];
-		Etal[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
+		etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
 	}
 	
-	public static int trouverEtalLibre() {
-		for (int i = 0; i < etals.lenght; i++) {
-			if(etals[i].isEtalOccupe==false) {
-				System.out.println("L'etal" + i + "est libre.");
+	public int trouverEtalLibre() {
+		for (int i = 0; i < etals.length; i++) {
+			if(etals[i].isEtalOccupe()) {
+				return i;
 			}
+		}
+		return -1;
 	}
 	
 	public Etal[] trouverEtals(String produit) {
+		int nbEtalsTrouves = 0;
+		for (int i = 0; i < etals.length; i++) {
+			if(etals[i].isEtalOccupe() && etals[i].contientProduit(produit))
+				nbEtalsTrouves++;
+			}
 		
+		Etal[] etalsTrouves = new Etal[nbEtalsTrouves];
+		int num = 0;
+		for (int i = 0; i < etals.length; i++) {
+			if(etals[i].isEtalOccupe() && etals[i].contientProduit(produit))
+				etalsTrouves[num] = etals[i];
+            num++;
+		}
+		
+	}
+	
+	public Etal trouverVendeur(Gaulois gaulois) {
+		for (int i = 0; i < etals.length; i++) {
+			if(etals[i].isEtalOccupe() && etals[i].getVendeur()==gaulois)
+				return etals[i];
+		}
+		return null;
+	}
+	
+	public String afficherMarche() {
+		int vide = 0;
+		for (int i = 0; i < etals.length; i++) {
+			if(etals[i].isEtalOccupe()==false)
+				vide++;
+			else
+				System.out.println(etals[i].afficherEtal());
+		}
+		System.out.println("Il reste " + vide + " étals non utilisés dans le marché.");
+	}
 	}
 
 	public String getNom() {
