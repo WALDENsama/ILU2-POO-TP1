@@ -59,7 +59,7 @@ public class Village {
 				etalsTrouves[num] = etals[i];
             num++;
 		}
-		
+		return etalsTrouves;
 	}
 	
 	public Etal trouverVendeur(Gaulois gaulois) {
@@ -124,4 +124,34 @@ public class Village {
 		}
 		return chaine.toString();
 	}
+	
+	public String installerVendeur(Gaulois vendeur, String produit,int
+			nbProduit) {
+		StringBuilder chaine = new StringBuilder();
+			
+	}
+	
+	public String rechercherVendeurProduit(String Produit) {
+		if etals.lenght
+		
+	}
+	
+	public String rechercherVendeursProduit(String produit) {
+		
+	}
+	
+	public Etal rechercherEtal(Gaulois vendeur) {
+		
+	}
+	
+	public String partirVendeur(Gaulois vendeur) {
+		("Le vendeur" + vendeur + "quitte son étal, il a vendu "20 fleurs" parmi les " 20 " qu'il voulait vendre")
+		
+	}
+	
+	public String afficherMarche() {
+		StringBuilder chaine = new StringBuilder();
+		chaine.append("Le marché du village " + nom + "possède plusieurs étals :" + afficherMarche());
+	}
+	
 }
